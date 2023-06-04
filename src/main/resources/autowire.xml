@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!--
+    <bean id="greetingProvider"
+          lazy-init="true"
+          class="org.pehlivan.c2_ConstructorAndSetterInjection.domain.HelloProvider">
+        <constructor-arg value="Hello!" name="greeting"/>
+    </bean>
+ -->
+    <bean id="errorRenderer"
+          autowire="constructor"
+          lazy-init="true"
+          class="org.pehlivan.c2_ConstructorAndSetterInjection.domain.ErrorRenderer">
+    </bean>
+    <bean id="errorRenderer2"
+          autowire="byType"
+          lazy-init="true"
+          class="org.pehlivan.c2_ConstructorAndSetterInjection.domain.ErrorRenderer">
+    </bean>
+    <bean id="errorRenderer3"
+          autowire="byName"
+          lazy-init="true"
+          class="org.pehlivan.c2_ConstructorAndSetterInjection.domain.ErrorRenderer">
+    </bean>
+
+</beans>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+		<bean id="selamProvider" lazy-init="true" class="org.pehlivan.c2_ConstructorAndSetterInjection.domain.SelamProvider">
+			<property name="greeting" value="selam"/>
+		</bean>
+		<bean id="helloProvider" lazy-init="true" class="org.pehlivan.c2_ConstructorAndSetterInjection.domain.HelloProvider">
+			<constructor-arg value="Hello!" name="greeting"/>
+		</bean>
+		<bean id="errorRenderer" lazy-init="true" class="org.pehlivan.c2_ConstructorAndSetterInjection.domain.ErrorRenderer">
+					<constructor-arg name="greetingProvider" ref="helloProvider"/>
+		</bean>
+		<bean id="errorRenderer2" lazy-init="true" class="org.pehlivan.c2_ConstructorAndSetterInjection.domain.ErrorRenderer">
+			<constructor-arg name="greetingProvider">
+				<ref bean="helloProvider"/>
+			</constructor-arg>
+		</bean>
+		<bean id="standartRendererRenderer" lazy-init="true" class="org.pehlivan.c2_ConstructorAndSetterInjection.domain.StandartRenderer">
+			<property name="provider" ref="selamProvider"/>
+		</bean>
+		<bean id="standartRendererRenderer2" lazy-init="true" class="org.pehlivan.c2_ConstructorAndSetterInjection.domain.StandartRenderer">
+			<property name="provider">
+				<ref bean="selamProvider"/>
+			</property>
+		</bean>
+		<bean id="standartRendererRenderer3" lazy-init="true" class="org.pehlivan.c2_ConstructorAndSetterInjection.domain.StandartRenderer">
+			<property name="provider">
+				<bean lazy-init="true" class="org.pehlivan.c2_ConstructorAndSetterInjection.domain.SelamProvider">
+					<property name="greeting" value="selamun aleykum"/>
+				</bean>
+			</property>
+		</bean>
+		<bean id="beanA" scope="prototype" name="a1 a2 a3" class="org.pehlivan.c1_BeanFactory.domain.BeanA" />
+		<bean id="beanB" scope="prototype" name="b1 b2 b3" class="org.pehlivan.c1_BeanFactory.domain.BeanB" />
+		<bean id="beanC" scope="prototype" class="org.pehlivan.c1_BeanFactory.domain.BeanC"  />
+
+		<bean id="valueInjection" lazy-init="true" class="org.pehlivan.c2_ConstructorAndSetterInjection.domain.ValueInjection">
+			<constructor-arg name="array">
+				<array>
+					<ref bean="beanA"/>
+					<ref bean="a1"/>
+					<ref bean="a2"/>
+					<ref bean="a3"/>
+				</array>
+			</constructor-arg>
+			<constructor-arg name="list">
+				<list>
+					<ref bean="beanB"/>
+					<ref bean="b1"/>
+					<ref bean="b2"/>
+					<ref bean="b3"/>
+				</list>
+			</constructor-arg>
+			<constructor-arg name="set">
+				<set>
+					<ref bean="beanC"/>
+					<ref bean="beanC"/>
+					<bean class="org.pehlivan.c1_BeanFactory.domain.BeanC">
+						<property name="name" value=" C1" />
+					</bean>
+					<bean class="org.pehlivan.c1_BeanFactory.domain.BeanC">
+						<property name="name" value=" C2" />
+					</bean>
+					<bean class="org.pehlivan.c1_BeanFactory.domain.BeanC">
+						<property name="name" value=" C3" />
+					</bean>
+					<bean class="org.pehlivan.c1_BeanFactory.domain.BeanC">
+						<property name="name" value=" C3" />
+					</bean>
+				</set>
+			</constructor-arg>
+			<constructor-arg name="map1">
+				<map>
+					<entry key="1">
+						<ref bean="beanA" />
+					</entry>
+					<entry key="20">
+						<ref bean="beanA" />
+					</entry>
+					<entry> <key> <null/> </key> <null/></entry>
+				</map>
+			</constructor-arg>
+		</bean>
+
+</beans>
